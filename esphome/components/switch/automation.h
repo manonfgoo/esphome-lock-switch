@@ -102,7 +102,7 @@ template<typename... Ts> class IsLockedCondition : public Condition<Ts...> {
  public:
   explicit IsLockedCondition(Switch *a_switch) : switch_(a_switch) {}
 
-  bool check(Ts... x) override { this->switch_->is_locked(); }
+  bool check(Ts... x) override { return this->switch_->is_locked(); }
 
  protected:
   Switch *switch_;
