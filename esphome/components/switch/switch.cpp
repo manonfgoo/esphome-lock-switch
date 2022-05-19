@@ -41,11 +41,11 @@ void Switch::write_state_toggle_(bool with_lock) {
 }
 
 void Switch::lock() { 
-  ESP_LOGD(TAG, "Locking '%s'", this->get_name().c_str());
+  ESP_LOGD(TAG, "'%s' Locked, can not be switched until unlocked", this->get_name().c_str());
   this->locked_ = true;
 }
 void Switch::unlock() { 
-  ESP_LOGD(TAG, "Unocking '%s'", this->get_name().c_str());
+  ESP_LOGD(TAG, "'%s' Unlocked, can now be switched", this->get_name().c_str());
   this->locked_ = false;
 }
 
