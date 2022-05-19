@@ -26,40 +26,53 @@ bool Switch::is_locked() { return this->locked_; }
 void Switch::lock() { this->locked_ = true; }
 void Switch::unlock() { this->locked_ = false; }
 
-void Switch::lock_turn_on() {
-  if(this->is_locked())
+void Switch::turn_on() {
+  if(this->is_locked()) {
+    ESP_LOGD(TAG, "'%s' locked, can not turn ON.", this->get_name().c_str());
     return;
+  }
+  this->write_state_on_();
+}
+void Switch::turn_off() {
+  if(this->is_locked()) {
+    ESP_LOGD(TAG, "'%s' locked, can not turn OFF.", this->get_name().c_str());
+    return;
+  }
+  this->write_state_off_();
+}
+void Switch::toggle() {
+  if(this->is_locked()) {
+    ESP_LOGD(TAG, "'%s' locked, can not Toggle.", this->get_name().c_str());
+    return;
+  }
+  this->write_state_toggle_();
+}
+
+void Switch::lock_turn_on() {
+  if(this->is_locked()) {
+    ESP_LOGD(TAG, "'%s' locked, can not turn ON.", this->get_name().c_str());
+    return;
+  }
   this->lock();
   this->write_state_on_();
 }
 void Switch::lock_turn_off() {
-  if(this->is_locked())
+  if(this->is_locked()) {
+    ESP_LOGD(TAG, "'%s' locked, can not turn OFF.", this->get_name().c_str());
     return;
+  }
   this->lock();
   this->write_state_off_();
 }
 void Switch::lock_toggle() {
-  if(this->is_locked())
+  if(this->is_locked()) {
+    ESP_LOGD(TAG, "'%s' locked, can not Toggle.", this->get_name().c_str());
     return;
+  }
   this->lock();
   this->write_state_toggle_();
 }
 
-void Switch::turn_on() {
-  if(this->is_locked())
-    return;
-  this->write_state_on_();
-}
-void Switch::turn_off() {
-  if(this->is_locked())
-    return;
-  this->write_state_off_();
-}
-void Switch::toggle() {
-  if(this->is_locked())
-    return;
-  this->write_state_toggle_();
-}
 
 optional<bool> Switch::get_initial_state() {
   this->rtc_ = global_preferences->make_preference<bool>(this->get_object_id_hash());
