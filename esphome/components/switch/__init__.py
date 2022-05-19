@@ -33,6 +33,11 @@ SwitchPtr = Switch.operator("ptr")
 ToggleAction = switch_ns.class_("ToggleAction", automation.Action)
 TurnOffAction = switch_ns.class_("TurnOffAction", automation.Action)
 TurnOnAction = switch_ns.class_("TurnOnAction", automation.Action)
+
+LockToggleAction = switch_ns.class_("LockToggleAction", automation.Action)
+LockTurnOffAction = switch_ns.class_("LockTurnOffAction", automation.Action)
+LockTurnOnAction = switch_ns.class_("LockTurnOnAction", automation.Action)
+
 SwitchPublishAction = switch_ns.class_("SwitchPublishAction", automation.Action)
 
 SwitchCondition = switch_ns.class_("SwitchCondition", Condition)
@@ -99,9 +104,14 @@ SWITCH_ACTION_SCHEMA = maybe_simple_id(
 )
 
 
+@automation.register_action("switch.toggle", LockToggleAction, SWITCH_ACTION_SCHEMA)
+@automation.register_action("switch.turn_off", LockTurnOffAction, SWITCH_ACTION_SCHEMA)
+@automation.register_action("switch.turn_on", LockTurnOnAction, SWITCH_ACTION_SCHEMA)
+
 @automation.register_action("switch.toggle", ToggleAction, SWITCH_ACTION_SCHEMA)
 @automation.register_action("switch.turn_off", TurnOffAction, SWITCH_ACTION_SCHEMA)
 @automation.register_action("switch.turn_on", TurnOnAction, SWITCH_ACTION_SCHEMA)
+
 async def switch_toggle_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     return cg.new_Pvariable(action_id, template_arg, paren)

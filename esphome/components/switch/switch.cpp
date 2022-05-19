@@ -9,18 +9,58 @@ static const char *const TAG = "switch";
 Switch::Switch(const std::string &name) : EntityBase(name), state(false) {}
 Switch::Switch() : Switch("") {}
 
-void Switch::turn_on() {
+void Switch::write_state_on_() {
   ESP_LOGD(TAG, "'%s' Turning ON.", this->get_name().c_str());
   this->write_state(!this->inverted_);
 }
-void Switch::turn_off() {
+void Switch::write_state_off_() {
   ESP_LOGD(TAG, "'%s' Turning OFF.", this->get_name().c_str());
   this->write_state(this->inverted_);
 }
-void Switch::toggle() {
+void Switch::write_state_toggle_() {
   ESP_LOGD(TAG, "'%s' Toggling %s.", this->get_name().c_str(), this->state ? "OFF" : "ON");
   this->write_state(this->inverted_ == this->state);
 }
+
+bool Switch::is_locked() const { return this->locked_; }
+void Switch::lock() const { this->locked_ = true; }
+void Switch::unlock() const { this->locked_ = false; }
+
+void Switch::lock_turn_on() {
+  if(this->is_locked())
+    return;
+  this->lock();
+  this->write_state_on_();
+}
+void Switch::lock_turn_off() {
+  if(this->is_locked())
+    return;
+  this->lock();
+  this->write_state_off_();
+}
+void Switch::lock_toggle() {
+  if(this->is_locked())
+    return;
+  this->lock();
+  this->write_state_toggle_();
+}
+
+void Switch::turn_on() {
+  if(this->is_locked())
+    return;
+  this->write_state_on_();
+}
+void Switch::turn_off() {
+  if(this->is_locked())
+    return;
+  this->write_state_off_();
+}
+void Switch::toggle() {
+  if(this->is_locked())
+    return;
+  this->write_state_toggle_();
+}
+
 optional<bool> Switch::get_initial_state() {
   this->rtc_ = global_preferences->make_preference<bool>(this->get_object_id_hash());
   bool initial_state;
