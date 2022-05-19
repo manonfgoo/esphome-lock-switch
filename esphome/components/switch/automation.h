@@ -88,11 +88,11 @@ template<typename... Ts> class UnLockAction : public Action<Ts...> {
 };
 
 
-template<typename... Ts> class SetLockAction : public Action<Ts...> {
+template<typename... Ts> class LockAction : public Action<Ts...> {
  public:
-  explicit UnLockAction(Switch *a_switch) : switch_(a_switch) {}
+  explicit LockAction(Switch *a_switch) : switch_(a_switch) {}
 
-  void play(Ts... x) override { this->switch_->set_lock(); }
+  void play(Ts... x) override { this->switch_->lock(); }
 
  protected:
   Switch *switch_;
@@ -100,7 +100,7 @@ template<typename... Ts> class SetLockAction : public Action<Ts...> {
 
 template<typename... Ts> class IsLockedAction : public Action<Ts...> {
  public:
-  explicit UnLockAction(Switch *a_switch) : switch_(a_switch) {}
+  explicit IsLockedAction(Switch *a_switch) : switch_(a_switch) {}
 
   void play(Ts... x) override { this->switch_->is_locked(); }
 
