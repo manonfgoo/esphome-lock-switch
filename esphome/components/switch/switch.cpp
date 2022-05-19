@@ -22,9 +22,9 @@ void Switch::write_state_toggle_() {
   this->write_state(this->inverted_ == this->state);
 }
 
-bool Switch::is_locked() const { return this->locked_; }
-void Switch::lock() const { this->locked_ = true; }
-void Switch::unlock() const { this->locked_ = false; }
+bool Switch::is_locked() { return this->locked_; }
+void Switch::lock() { this->locked_ = true; }
+void Switch::unlock() { this->locked_ = false; }
 
 void Switch::lock_turn_on() {
   if(this->is_locked())
