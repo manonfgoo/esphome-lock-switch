@@ -102,7 +102,7 @@ template<typename... Ts> class IsLockedAction : public Action<Ts...> {
  public:
   explicit IsLockedAction(Switch *a_switch) : switch_(a_switch) {}
 
-  bool play(Ts... x) override { this->switch_->is_locked(); }
+  bool check(Ts... x) override { this->switch_->is_locked(); }
 
  protected:
   Switch *switch_;
