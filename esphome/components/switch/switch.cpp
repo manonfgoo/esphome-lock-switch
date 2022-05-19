@@ -53,9 +53,9 @@ void Switch::turn_on()  { bool set_lock = false; this->write_state_on_(set_lock)
 void Switch::turn_off() { bool set_lock = false; this->write_state_off_(set_lock); }
 void Switch::toggle()   { bool set_lock = false; this->write_state_toggle_(set_lock); }
 
-void Switch::lock_turn_on()  { bool set_lock = false; this->write_state_on_(set_lock); }
-void Switch::lock_turn_off() { bool set_lock = false; this->write_state_off_(set_lock); }
-void Switch::lock_toggle()   { bool set_lock = false; this->write_state_toggle_(set_lock); }
+void Switch::lock_turn_on()  { bool set_lock = true; this->write_state_on_(set_lock); }
+void Switch::lock_turn_off() { bool set_lock = true; this->write_state_off_(set_lock); }
+void Switch::lock_toggle()   { bool set_lock = true; this->write_state_toggle_(set_lock); }
 
 bool Switch::is_locked() { return this->locked_; }
 
