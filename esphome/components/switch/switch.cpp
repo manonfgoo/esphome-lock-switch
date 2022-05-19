@@ -23,8 +23,15 @@ void Switch::write_state_toggle_() {
 }
 
 bool Switch::is_locked() { return this->locked_; }
-void Switch::lock() { this->locked_ = true; }
-void Switch::unlock() { this->locked_ = false; }
+
+void Switch::lock() { 
+  ESP_LOGD(TAG, "Locking '%s'", this->get_name().c_str());
+  this->locked_ = true;
+}
+void Switch::unlock() { 
+  ESP_LOGD(TAG, "Unocking '%s'", this->get_name().c_str());
+  this->locked_ = false;
+}
 
 void Switch::turn_on() {
   if(this->is_locked()) {
