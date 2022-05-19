@@ -98,9 +98,9 @@ template<typename... Ts> class LockAction : public Action<Ts...> {
   Switch *switch_;
 };
 
-template<typename... Ts> class IsLockedAction : public Action<Ts...> {
+template<typename... Ts> class IsLockedCondition : public Condition<Ts...> {
  public:
-  explicit IsLockedAction(Switch *a_switch) : switch_(a_switch) {}
+  explicit IsLockedCondition(Switch *a_switch) : switch_(a_switch) {}
 
   bool check(Ts... x) override { this->switch_->is_locked(); }
 
