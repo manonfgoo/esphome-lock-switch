@@ -21,7 +21,7 @@ void Switch::write_state_on_(bool with_lock) {
 }
 void Switch::write_state_off_(bool with_lock) {
   if(this->is_locked()) {
-    ESP_LOGD(TAG, "'%s' locked, can not turn off.", this->get_name().c_str());
+    ESP_LOGD(TAG, "'%s' locked, can not turn OFF.", this->get_name().c_str());
     return;
   }
   if(with_lock)
@@ -31,7 +31,7 @@ void Switch::write_state_off_(bool with_lock) {
 }
 void Switch::write_state_toggle_(bool with_lock) {
   if(this->is_locked()) {
-    ESP_LOGD(TAG, "'%s' locked, can not turn off.", this->get_name().c_str());
+    ESP_LOGD(TAG, "'%s' locked, can not toggle.", this->get_name().c_str());
     return;
   }
   if(with_lock)
