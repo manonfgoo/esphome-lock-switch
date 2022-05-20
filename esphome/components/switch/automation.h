@@ -108,6 +108,15 @@ template<typename... Ts> class IsLockedCondition : public Condition<Ts...> {
   Switch *switch_;
 };
 
+template<typename... Ts> class IsUnLockedCondition : public Condition<Ts...> {
+ public:
+  explicit IsUnLockedCondition(Switch *a_switch) : switch_(a_switch) {}
+
+  bool check(Ts... x) override { return this->switch_->is_unlocked(); }
+
+ protected:
+  Switch *switch_;
+};
 
 class SwitchTurnOnTrigger : public Trigger<> {
  public:

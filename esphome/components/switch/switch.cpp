@@ -58,6 +58,7 @@ void Switch::lock_turn_off() { bool set_lock = true; this->write_state_off_(set_
 void Switch::lock_toggle()   { bool set_lock = true; this->write_state_toggle_(set_lock); }
 
 bool Switch::is_locked() { return this->locked_; }
+bool Switch::is_unlocked() { return ! this->locked_; }
 
 optional<bool> Switch::get_initial_state() {
   this->rtc_ = global_preferences->make_preference<bool>(this->get_object_id_hash());

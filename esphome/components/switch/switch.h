@@ -79,9 +79,13 @@ class Switch : public EntityBase {
    */
   void unlock();
 
-  /** This returns if the switch is locked
+  /** This returns true if the switch is locked
    */
   bool is_locked();
+
+  /** This returns true if the switch is unlocked
+   */
+  bool is_unlocked();
 
   /** this locks the switch. A Locked switch can not be
    * switched by the front-end until unlock()
