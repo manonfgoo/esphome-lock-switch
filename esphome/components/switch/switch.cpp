@@ -40,11 +40,11 @@ void Switch::write_state_toggle_(bool set_lock) {
   this->write_state(this->inverted_ == this->state);
 }
 
-void Switch::lock() { 
+void Switch::lock() {
   ESP_LOGD(TAG, "'%s' Locked, can not be switched until unlocked", this->get_name().c_str());
   this->locked_ = true;
 }
-void Switch::unlock() { 
+void Switch::unlock() {
   ESP_LOGD(TAG, "'%s' Unlocked, can now be switched", this->get_name().c_str());
   this->locked_ = false;
 }

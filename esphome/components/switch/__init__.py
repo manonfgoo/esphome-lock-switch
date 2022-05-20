@@ -42,10 +42,10 @@ UnLockAction = switch_ns.class_("UnLockAction", automation.Action)
 
 SwitchPublishAction = switch_ns.class_("SwitchPublishAction", automation.Action)
 
-SwitchCondition = switch_ns.class_("SwitchCondition", Condition)
 IsLockedCondition = switch_ns.class_("IsLockedCondition", Condition)
 IsUnLockedCondition = switch_ns.class_("IsUnLockedCondition", Condition)
 
+SwitchCondition = switch_ns.class_("SwitchCondition", Condition)
 SwitchTurnOnTrigger = switch_ns.class_(
     "SwitchTurnOnTrigger", automation.Trigger.template()
 )
@@ -121,8 +121,6 @@ SWITCH_ACTION_SCHEMA = maybe_simple_id(
 @automation.register_action("switch.toggle", ToggleAction, SWITCH_ACTION_SCHEMA)
 @automation.register_action("switch.turn_off", TurnOffAction, SWITCH_ACTION_SCHEMA)
 @automation.register_action("switch.turn_on", TurnOnAction, SWITCH_ACTION_SCHEMA)
-
-
 async def switch_toggle_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     return cg.new_Pvariable(action_id, template_arg, paren)
