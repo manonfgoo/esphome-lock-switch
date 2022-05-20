@@ -9,32 +9,32 @@ static const char *const TAG = "switch";
 Switch::Switch(const std::string &name) : EntityBase(name), state(false) {}
 Switch::Switch() : Switch("") {}
 
-void Switch::write_state_on_(bool with_lock) {
+void Switch::write_state_on_(bool set_lock) {
   if(this->is_locked()) {
-    ESP_LOGD(TAG, "'%s' locked, can not turn ON.", this->get_name().c_str());
+    ESP_LOGD(TAG, "'%s' can not turn ON because LOCKED.", this->get_name().c_str());
     return;
   }
-  if(with_lock)
+  if(set_lock)
     this->lock();
   ESP_LOGD(TAG, "'%s' Turning ON.", this->get_name().c_str());
   this->write_state(!this->inverted_);
 }
-void Switch::write_state_off_(bool with_lock) {
+void Switch::write_state_off_(bool set_lock) {
   if(this->is_locked()) {
-    ESP_LOGD(TAG, "'%s' locked, can not turn OFF.", this->get_name().c_str());
+    ESP_LOGD(TAG, "'%s' can not turn OFF because LOCKED.", this->get_name().c_str());
     return;
   }
-  if(with_lock)
+  if(set_lock)
     this->lock();
   ESP_LOGD(TAG, "'%s' Turning OFF.", this->get_name().c_str());
   this->write_state(this->inverted_);
 }
-void Switch::write_state_toggle_(bool with_lock) {
+void Switch::write_state_toggle_(bool set_lock) {
   if(this->is_locked()) {
-    ESP_LOGD(TAG, "'%s' locked, can not toggle.", this->get_name().c_str());
+    ESP_LOGD(TAG, "'%s' can not Toggle because LOCKED.", this->get_name().c_str());
     return;
   }
-  if(with_lock)
+  if(set_lock)
     this->lock();
   ESP_LOGD(TAG, "'%s' Toggling %s.", this->get_name().c_str(), this->state ? "OFF" : "ON");
   this->write_state(this->inverted_ == this->state);

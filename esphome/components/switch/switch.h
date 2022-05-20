@@ -142,13 +142,13 @@ class Switch : public EntityBase {
   optional<std::string> device_class_;
   /** Turn this switch on. This is called by the public classes
    */
-  void write_state_on_(bool with_lock);
+  void write_state_on_(bool set_lock);
   /** Turn this switch off. This is called by the public classes
    */
-  void write_state_off_(bool with_lock);
+  void write_state_off_(bool set_lock);
   /** Toggle this switch. This is called by the public classes
    */
-  void write_state_toggle_(bool with_lock);
+  void write_state_toggle_(bool set_lock);
   bool locked_{false};
 
 };
